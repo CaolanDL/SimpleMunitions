@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - PlayerAttack
+  - Environment
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Enemy
   - Player
   - Bullet
-  - 
+  - Environment
   - 
   - 
   - 
@@ -55,11 +57,11 @@ TagManager:
   - name: Bullet
     uniqueID: 2363998271
     locked: 0
+  - name: Cover
+    uniqueID: 3845035575
+    locked: 0
   - name: Wall
     uniqueID: 2233446119
-    locked: 0
-  - name: Roof
-    uniqueID: 3845035575
     locked: 0
   - name: Default
     uniqueID: 0

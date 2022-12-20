@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 8f24215bf815cdf408182fe97f413c8f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - monofur
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 83e9ae3d31096e7489473db6bf364460, type: 3}
+  - {fileID: 12800000, guid: 13158790fa5f95d41a8444600d5dc94a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

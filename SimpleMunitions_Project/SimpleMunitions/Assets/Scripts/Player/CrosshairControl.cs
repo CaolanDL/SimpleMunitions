@@ -5,16 +5,19 @@ using UnityEngine;
 public class CrosshairControl : MonoBehaviour
 {
     public float MouseSpeed = 0.1f;
-    
+
+    [SerializeField]
+    private float rotateSpeed = 30f, bobSpeed = 1.5f, bobSize = 1.5f;
+
     void Awake()
     {
-        //Cursor.visible = false;  //Disable Mouse cursor
+        Cursor.visible = false;  //Disable Mouse cursor
     }
 
     public void UpdateCrosshair()
     {
         SetCrosshairPosition();
-        RotateAnimation(30f, 1.1f, 3f);
+        RotateAnimation(rotateSpeed, bobSize, bobSpeed);
     }
 
     void SetCrosshairPosition()  //Convert Mouse to world position then move crosshair
@@ -29,9 +32,8 @@ public class CrosshairControl : MonoBehaviour
         transform.Rotate(new Vector3(0, 0, rotSpeed * Time.deltaTime));
 
         //Rescale by sin
-        float sizeMod = Mathf.Sin(Time.time * bobSpeed);
-        sizeMod = Remap(sizeMod, 0, 1, 1, bobSize);
-        Debug.Log(sizeMod);
+        float sizeMod = Mathf.Sin(Time.time * bobSpeed % 360);
+        sizeMod = Remap(sizeMod, -1, 1, 1, bobSize); 
         transform.localScale = Vector3.one * sizeMod;
     }
 

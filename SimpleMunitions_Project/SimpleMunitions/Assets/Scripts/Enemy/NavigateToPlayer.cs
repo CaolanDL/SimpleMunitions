@@ -7,28 +7,69 @@ public class NavigateToPlayer : MonoBehaviour
     public GameObject TargetPlayer;
     public Rigidbody2D rb;
 
+    public float MoveSpeed = 15, TurnSpeed = 20;
+    private float startDistanceDelay = 3f;
+
+    private bool _targetActive;
+
+
     private void Start()
     {
         TargetPlayer = GameObject.Find("Player");
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    public float MoveSpeed = 15;
+        setOldPos();
+    }
 
     private void FixedUpdate()
     {
+        if (!_targetActive)
+        {
+            distanceCheck();
+        }
+
         rotateTowardsTarget();
 
-        rb.AddRelativeForce(Vector2.up * MoveSpeed);
+        moveTowardsTarget();
     }
 
-    public float TurnSpeed = 20;
 
     void rotateTowardsTarget()
     {
-        float _angleToTarget = Vector2.SignedAngle(TargetPlayer.transform.position - transform.position, Vector2.up);
-        float _rotateAngle = Mathf.MoveTowardsAngle(rb.rotation, -_angleToTarget, TurnSpeed * Time.deltaTime);
+        if (_targetActive) //Turn towards target while targeting active
+        {
+            float _angleToTarget = Vector2.SignedAngle(TargetPlayer.transform.position - transform.position, Vector2.up);
+            float _rotateAngle = Mathf.MoveTowardsAngle(rb.rotation, -_angleToTarget, TurnSpeed * Time.deltaTime);
 
-        rb.SetRotation(_rotateAngle);
+            rb.SetRotation(_rotateAngle);
+        }
+    }
+
+    void moveTowardsTarget()
+    {
+        rb.AddRelativeForce(Vector2.up * MoveSpeed);
+    }
+
+
+    private Vector2 oldPosition;
+    private float totalDistance = 0;
+    //Check if distance reached then enable targeting
+    void distanceCheck()
+    {
+        Vector3 distanceVector = rb.position - oldPosition;
+        float frameDistance = distanceVector.magnitude;
+        totalDistance += frameDistance;
+
+        setOldPos();
+
+        if (totalDistance > startDistanceDelay)
+        {
+            _targetActive = true;
+        }
+    }
+
+    void setOldPos()
+    {
+        oldPosition = rb.position;
     }
 }

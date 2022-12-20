@@ -4,35 +4,55 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float _speed;
+    [SerializeField]
+    private float _speed, _lifeTime;
     public float Damage;
+    public bool IsPropelled;
 
-    public void Init(float speed, float damage, float size) //Initialise Variables
+    public void Init(float speed, float damage, float size, float  lifeTime, float rotation) //Initialise Variables
     {
         _speed = speed;
+        _lifeTime = lifeTime;
         Damage = damage;
 
-        transform.localScale.Set(size, size, size);
+        transform.localScale = Vector3.one * size;
+
+        rb = GetComponent<Rigidbody2D>();
+        rb.SetRotation(rb.rotation + rotation);
+
+    }
+
+    public Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        InitLifeTime();
+
+        if (!IsPropelled) { rb.AddRelativeForce(Vector2.up * _speed); }
+            
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Quaternion Rotation = Quaternion.AngleAxis(transform.rotation.z, Vector3.forward); //Get angle of motion
+        CheckLifeTime();
 
-        transform.Translate(Vector2.up * _speed * Time.deltaTime);
+        if (IsPropelled) { rb.AddRelativeForce(Vector2.up * _speed); }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private float lifeTimeEnd;
+
+    void InitLifeTime()
     {
-        if (!collision.CompareTag("Player"))
+        lifeTimeEnd = Time.time + _lifeTime;
+    }
+
+    void CheckLifeTime()
+    {
+        if (_lifeTime > 0  && Time.time > lifeTimeEnd)
         {
             Destroy(gameObject);
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Destroy(gameObject);
     }
 }

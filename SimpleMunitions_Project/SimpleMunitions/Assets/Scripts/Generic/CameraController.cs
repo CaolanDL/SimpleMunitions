@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class CameraController : MonoBehaviour
         Crosshair.GetComponent<CrosshairControl>().UpdateCrosshair();
     }
 
-    void TrackToPlayer()
+    public void MenuOff()
     {
-        Vector3 PlayerPosition = ActivePlayer.transform.position;
-        transform.position = new Vector3(PlayerPosition.x, PlayerPosition.y, transform.position.z);
+        transform.DOLocalMoveX(-5, 1);
+    }
+
+    public void MenuOn()
+    {
+        transform.DOLocalMoveX(-19, 1);
     }
 }
