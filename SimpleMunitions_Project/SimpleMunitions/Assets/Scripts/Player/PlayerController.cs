@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,7 +35,8 @@ public class PlayerController : MonoBehaviour
     
     private void Update()  //Update each frame
     {
-        FrameInputs();
+        mouseInputs();
+        dodgeInput();
     }
     ///------------------------------------------
 
@@ -53,19 +55,32 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    void FrameInputs()  //Inputs to run on every frame
+    void dodgeInput()  //Inputs to run on every frame
     {
-        //Weapon Firing
-        if (Input.GetMouseButtonDown(0)) { WeaponManager.SetWeaponsActive(true); }  //On
-        else if (Input.GetMouseButtonUp(0)) { WeaponManager.SetWeaponsActive(false); } //Off
-
-        
         if (Input.GetButtonDown("Dodge")) { Dodge(); }  //Dodge
     }
-
 
     void Dodge()   //Dodge player in input direction
     {
         PlayerRB.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * DodgeSpeed, ForceMode2D.Impulse);
     }
+
+
+
+    void mouseInputs()
+    {
+        if (!isMouseOverUI())
+        {
+            if (Input.GetMouseButtonDown(0)) { WeaponManager.SetWeaponsActive(true); }  //On
+            else if (Input.GetMouseButtonUp(0)) { WeaponManager.SetWeaponsActive(false); } //Off
+        }
+        
+    }
+
+    //Check if mouse is over UI element
+    private bool isMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
 }

@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0
   _lifeTime: 0
-  Damage: 0
+  Damage: 1
   IsPropelled: 0
   rb: {fileID: 0}
 --- !u!114 &-1785880478555188535

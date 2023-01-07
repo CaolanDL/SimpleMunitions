@@ -8,9 +8,9 @@ public class FakeShadowCast : MonoBehaviour
     private Material sMaterial;
 
     private SpriteRenderer rSprite;
-    private GameObject shadowObject;
+    private GameObject shadowObject = null;
 
-    private Vector3 offset = new Vector3(-0.1f,-0.1f, 0);
+    private Vector3 offset = new Vector3(-0.1f, -0.1f, 0);
 
     // Create an empty child object with same sprite and shadow material
     void Start()
@@ -19,21 +19,37 @@ public class FakeShadowCast : MonoBehaviour
 
         rSprite = GetComponent<SpriteRenderer>();
 
-        shadowObject = Instantiate(new GameObject(), transform);
+        if (rSprite != null)
+        {
+            shadowObject = new GameObject("FakeShadow");
 
-        shadowObject.name = "FakeShadow";
+            //shadowObject.transform.localScale = gameObject.transform.localScale;
+            SpriteRenderer shadowSprite = shadowObject.AddComponent<SpriteRenderer>();
+            shadowSprite.sprite = rSprite.sprite;
+            shadowSprite.material = sMaterial;
+            shadowSprite.sortingLayerID = rSprite.sortingLayerID;
+            shadowSprite.sortingOrder = -1;
 
-        //shadowObject.transform.localScale = gameObject.transform.localScale;
-        SpriteRenderer shadowSprite = shadowObject.AddComponent<SpriteRenderer>();
-        shadowSprite.sprite = rSprite.sprite;
-        shadowSprite.material = sMaterial;
-        shadowSprite.sortingLayerID = rSprite.sortingLayerID;
-        shadowSprite.sortingOrder = -1;
-        
+
+            shadowObject.transform.localRotation = transform.rotation;
+
+            shadowObject.transform.SetParent(transform);
+            shadowObject.transform.localScale = Vector3.one;
+            copyPosition();
+        }
+
     }
 
     // Set position to shadow offset
     void Update()
+    {
+        if (shadowObject != null)
+        {
+            copyPosition();
+        }
+    }
+
+    void copyPosition()
     {
         shadowObject.transform.position = transform.position + offset;
     }

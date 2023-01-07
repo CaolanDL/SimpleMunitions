@@ -7,8 +7,8 @@ using DG.Tweening;
 public class DeathAnimation : MonoBehaviour
 {
     //Private Perma vals
-    private float Duration = 1f, 
-        Distance = 5;
+    private float Duration = 0.3f, 
+        Distance = 2;
 
     //Enemy Accessable
     public bool IsDead = false;
@@ -19,26 +19,19 @@ public class DeathAnimation : MonoBehaviour
     //Object Vars
     private SpriteRenderer sr;
     private Rigidbody2D rb;
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void killShadows()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GameObject shadow = gameObject.transform.FindRecursive("FakeShadow").gameObject;
-            if(shadow = null) { break; }
-            Destroy(shadow);
-        }
-    }
 
     public void play(GameObject impactor)
     {
-        Vector2 velocityInput = impactor.GetComponent<Rigidbody2D>().velocity;
+        velocityInput = impactor.GetComponent<Rigidbody2D>().velocity;
         velocityInput = velocityInput.normalized * Distance;
 
         killShadows();
@@ -50,11 +43,25 @@ public class DeathAnimation : MonoBehaviour
 
     void animate()
     {
-        rb.DOMove(velocityInput + rb.position, Duration);
-        sr.DOColor(new Color(255, 255, 255), Duration);
-        sr.DOFade(255, Duration);
+        Vector3 localPos = transform.localPosition;
+
+        Tween moveTween = rb.DOMove(velocityInput + new Vector2(localPos.x, localPos.y), Duration);
+        moveTween.SetEase(Ease.OutSine);
+
+        sr.DOFade(0, Duration);
+
         Sequence deathSequence = DOTween.Sequence();
         deathSequence.AppendInterval(Duration);
         deathSequence.AppendCallback(() => Destroy(gameObject));
+    }
+
+    void killShadows()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform shadow = gameObject.transform.FindRecursive("FakeShadow");
+            if (shadow == null) { break; }
+            Destroy(shadow.gameObject);
+        }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8695860180305736672}
   - component: {fileID: 3808160597391100875}
   - component: {fileID: 8016958344594254049}
+  - component: {fileID: 1269925016773744289}
   - component: {fileID: 6012534674811208168}
   m_Layer: 8
   m_Name: Gun_Scatter
@@ -28,12 +29,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8695860180305736678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.777, y: 0.087, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8695860180305736672
 SpriteRenderer:
@@ -55,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,17 +116,31 @@ MonoBehaviour:
   BulletObject: {fileID: 1510281592882847432, guid: adec5fca776879142949151889f09bcd, type: 3}
   MuzzleFlash: {fileID: 0}
   CoolDown: 0.1
+  Noise: 0.1
   Damage: 10
   BulletSpeed: 1200
   BulletSize: 0.18
-  BulletLifeTime: 0.2
+  BulletLifeTime: 0.22
   Bullet_Count: 6
   Bullet_SpreadAngle: 40
   ForwardOffset: 0.5
-  InheritVelocity: 0
+  InheritVelocity: 1
   _shooting: 0
   Recoil_Distance: 0.2
   Recoil_Speed: 0.1
+--- !u!114 &1269925016773744289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8695860180305736678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd44c0204d6a284ba29e19d74cfc013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Crosshair: {fileID: 0}
 --- !u!82 &6012534674811208168
 AudioSource:
   m_ObjectHideFlags: 0

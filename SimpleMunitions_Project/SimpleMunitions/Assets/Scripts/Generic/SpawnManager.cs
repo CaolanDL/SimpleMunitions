@@ -24,9 +24,11 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    //Start a pausable sequence to spawn enemies every [TimeInterval]
-    private float startSpawnInterval = 1.5f;
-    private float spawnIntervalChange = 0.8f;
+    //Start a sequence to spawn enemies every [TimeInterval]
+    private float startSpawnInterval = 2.7f;
+    private float spawnIntervalChange = 0.75f;
+    private int spawnCountChange = 3;
+
     private Sequence startSpawnLoop()
     {
         Sequence sequence = DOTween.Sequence();
@@ -34,20 +36,27 @@ public class SpawnManager : MonoBehaviour
         sequence.AppendCallback(() => SpawnRandomEnemy());
         sequence.SetLoops(-1, LoopType.Restart);
 
+        numToSpawn += spawnCountChange;
+
+        numEKilled = 0; numESpawned = 0;
+
         return sequence;
     }
 
     void SpawnRandomEnemy()
     {
         //Pick a random spawnpoint and spawn a random enemy
-        Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)].transform;
-        Instantiate(SpawnPool[Random.Range(0, SpawnPool.Length)], spawnPoint.position, spawnPoint.rotation);
+        //Transform spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)].transform;
+        SpawnPoint spawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)].GetComponent<SpawnPoint>();
+        GameObject enemytospawn = SpawnPool[Random.Range(0, SpawnPool.Length)];
+
+        spawnPoint.spawnEnemy(enemytospawn);
 
         numESpawned++;   //Add one to the number of spawned enemies
     }
 
     //Wave Control
-    private int numToESpawn = 8;
+    private int numToSpawn = 0;
 
     public int numEKilled = 0;
     private int numESpawned = 0;
@@ -56,20 +65,26 @@ public class SpawnManager : MonoBehaviour
     {
         if (!gameManager.ShopActive)
         {
-            if (numESpawned >= numToESpawn)
+            //Stop spawning when numToSpawn reached
+            if (numESpawned >= numToSpawn && spawnSequence.IsActive() )
             {
+                spawnSequence.Pause();
                 spawnSequence.Kill();
             }
-            if (numEKilled >= numToESpawn)
+            if (numEKilled >= numToSpawn)
             {
                 gameManager.GotoShop();
             }
         }
     }
 
+    public void enemyKilled()
+    {
+        numEKilled++;
+    }
+
     public void startNewWave()
     {
-        numToESpawn = 8;
         startSpawnInterval *= spawnIntervalChange;
         spawnSequence = startSpawnLoop();
     }

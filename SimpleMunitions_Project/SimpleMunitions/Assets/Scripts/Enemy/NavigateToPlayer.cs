@@ -11,6 +11,7 @@ public class NavigateToPlayer : MonoBehaviour
     private float startDistanceDelay = 3f;
 
     private bool _targetActive;
+    public bool isDead = false;
 
 
     private void Start()
@@ -22,6 +23,15 @@ public class NavigateToPlayer : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        if (!isDead)
+        {
+            motionSequence();
+        }
+    }
+
+
+    void motionSequence()
     {
         if (!_targetActive)
         {
@@ -53,7 +63,7 @@ public class NavigateToPlayer : MonoBehaviour
 
     private Vector2 oldPosition;
     private float totalDistance = 0;
-    //Check if distance reached then enable targeting
+    //Check if start delay distance reached then enable targeting
     void distanceCheck()
     {
         Vector3 distanceVector = rb.position - oldPosition;

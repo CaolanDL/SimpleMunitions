@@ -16,17 +16,17 @@ TagManager:
   - Water
   - UI
   - EnemyIgnore
-  - Enemy
+  - 
   - Player
   - Bullet
+  - 
+  - 
   - Environment
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Enemy Attack
   - 
   - 
   - 

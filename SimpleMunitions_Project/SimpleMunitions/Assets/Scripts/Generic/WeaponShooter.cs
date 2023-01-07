@@ -28,8 +28,9 @@ public class WeaponShooter : MonoBehaviour
         }
     }
 
-    [Header("Base Settings")]
+    [Header("ROF Settings")]
     public float CoolDown = 0.2f;
+    public float Noise = 0f;
 
     [Header("Bullet Settings")]
     public float Damage = 50;
@@ -95,7 +96,7 @@ public class WeaponShooter : MonoBehaviour
     }
 
 
-    //Recieve Player Fire Input
+    //Recieve Fire Input
     public bool _shooting = false;
 
     public void SetFiring(bool fireActive)
@@ -109,7 +110,8 @@ public class WeaponShooter : MonoBehaviour
 
     private void ResetTimer()
     {
-        _timer = Time.time + CoolDown;
+        _timer = Time.time + CoolDown; //Create Timer location
+        _timer += Random.Range(0, CoolDown) * Noise; //Add random noise offset
     }
 
 

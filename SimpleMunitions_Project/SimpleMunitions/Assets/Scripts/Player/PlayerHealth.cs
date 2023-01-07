@@ -1,44 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameManager GameManager;
-    private DeathAnimation deathAnimation;
+    //Health
+    private int Hearts = 8;
+    public int pointValue = 20;
+
+    [SerializeField] private GameObject GameManager;
+    private GameManager gameManager;
+
+    private P_DeathAnimation deathAnimation;
+    
+
+    #region FeedBacks
+    [SerializeField] private MMF_Player f_Damage;
+    [SerializeField] private MMF_Player f_Death;
+    #endregion
 
     private void Start()
     {
-        GameManager = FindObjectOfType<GameManager>();
-        deathAnimation = GetComponent<DeathAnimation>();
+        gameManager = GameManager.GetComponent<GameManager>();
+        deathAnimation = GetComponent<P_DeathAnimation>();
     }
 
-    public float Health = 3;
 
-    void UpdateHealth(int healthChange, GameObject impactor)
-    {
-        Health += healthChange;
-        CheckIfDead(impactor);
-    }
+    public bool isDead = false;
 
-    void CheckIfDead(GameObject impactor)
+    //Detect Collision
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Health <= 0)
+        if (!isDead)
         {
-            Death(impactor);
+            ifHitByEnemy(collision);
+            checkIfDead(collision);
         }
     }
 
-    void Death(GameObject impactor)
+    //Check if hit by bullet.
+    void ifHitByEnemy(Collider2D collision)
     {
-        if (deathAnimation != null)
+        if (collision.gameObject.CompareTag("EnemyAttack") | collision.gameObject.CompareTag("Enemy"))
         {
-            deathAnimation.play(impactor);
+            gameManager.f_ShakeLarge.PlayFeedbacks();
+            gameManager.Hearts--;
+            Hearts = gameManager.Hearts;
+            gameManager.setHearts(Hearts);
+
+            //play damage Animation
+            damagedAnim();
         }
-        else
+    }
+
+    void checkIfDead(Collider2D collision)
+    {
+        if (Hearts <= 0) //Kill if health 0
         {
-            //Remove Game Object
-            Destroy(gameObject);
+            isDead = true;
+            deathAnimation.play();
+        }
+    }
+
+    void damagedAnim()
+    {
+        if (!f_Damage.IsPlaying)
+        {
+            f_Damage.PlayFeedbacks();
         }
     }
 }

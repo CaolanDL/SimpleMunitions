@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2949856512117239631}
   - component: {fileID: 3894794360554626011}
   - component: {fileID: 6250836280552528646}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Wall_Left (1)
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 590257806710383777}
   - component: {fileID: 3147030270917184182}
   - component: {fileID: 5002101362650787639}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Wall_Left
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6334468610036249535}
   - component: {fileID: 8727426503113306551}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Corner
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4807696019481007942}
   - component: {fileID: 867000295286006892}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: CornerWall
   m_TagString: Environment
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ Transform:
   - {fileID: 590257806710383777}
   - {fileID: 2949856512117239631}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &867000295286006892
 PolygonCollider2D:

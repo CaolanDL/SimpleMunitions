@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2464dc96bfb1e7b4ea0eb0c4069b4314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDelay: 0.3
+  startDelay: 0.2
   Target: {fileID: 0}
   rb: {fileID: 0}
   TurnSpeed: 400
@@ -155,7 +155,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
