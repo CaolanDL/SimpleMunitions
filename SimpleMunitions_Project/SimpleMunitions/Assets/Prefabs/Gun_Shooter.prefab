@@ -66,7 +66,7 @@ MonoBehaviour:
   BulletObject: {fileID: 4177023215609244772, guid: d63803ec0b540124187a5ea5e0ffd94f, type: 3}
   MuzzleFlash: {fileID: 0}
   CoolDown: 0.25
-  Noise: 0.1
+  Noise: 1
   Damage: 20
   BulletSpeed: 2400
   BulletSize: 1

@@ -222,7 +222,7 @@ MonoBehaviour:
   BulletSize: 1
   BulletLifeTime: 0
   Bullet_Count: 3
-  Bullet_SpreadAngle: 15
+  Bullet_SpreadAngle: 60
   ForwardOffset: 2
   InheritVelocity: 0
   _shooting: 1

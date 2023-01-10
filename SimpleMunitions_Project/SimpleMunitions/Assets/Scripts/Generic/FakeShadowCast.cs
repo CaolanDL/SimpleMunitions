@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// For casting fake shadows beneath sprite render components
+/// </summary>
+
 public class FakeShadowCast : MonoBehaviour
 {
     [SerializeField]
@@ -23,7 +27,6 @@ public class FakeShadowCast : MonoBehaviour
         {
             shadowObject = new GameObject("FakeShadow");
 
-            //shadowObject.transform.localScale = gameObject.transform.localScale;
             SpriteRenderer shadowSprite = shadowObject.AddComponent<SpriteRenderer>();
             shadowSprite.sprite = rSprite.sprite;
             shadowSprite.material = sMaterial;

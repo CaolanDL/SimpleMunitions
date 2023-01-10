@@ -6,7 +6,7 @@ using DG.Tweening;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private float radius = 1f;
-    [SerializeField] private float rotation = 90f;
+    [SerializeField] private float rotation = -90f;
 
     [SerializeField] private GameObject startWeapon;
 
@@ -16,11 +16,6 @@ public class WeaponManager : MonoBehaviour
     {
         OwnedWeapons.Clear(); //Clear weapon list
         AddWeapon(startWeapon); //Add starting weapon
-    }
-
-    private void Update()
-    {
-        UpdateWeapons();
     }
 
 
@@ -43,6 +38,8 @@ public class WeaponManager : MonoBehaviour
         GameObject newWeapon = Instantiate(weaponToAdd, gameObject.transform); //Create new weapon gameObject with weapon container as parent.
         OwnedWeapons.Add(newWeapon); //Add new weapon to list of weapons
 
+        rotation += 90;
+
         UpdateWeapons();
     }
 
@@ -58,8 +55,7 @@ public class WeaponManager : MonoBehaviour
         
         foreach (GameObject Weapon in OwnedWeapons)
         {
-            float w_rotPosition = w_seperation * iteration;
-            w_rotPosition += Time.time * spinSpeed;
+            float w_rotPosition = w_seperation * iteration + rotation;
             Debug.Log(w_rotPosition);
 
             Weapon.transform.localPosition = new Vector2(0, radius);
@@ -70,7 +66,7 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-    ///Most Likely unused but useful to reference
+    //Most Likely unused but useful to reference
     public void RemoveWeapon(GameObject weaponToRemove)
     {
         foreach (GameObject Weapon in OwnedWeapons)

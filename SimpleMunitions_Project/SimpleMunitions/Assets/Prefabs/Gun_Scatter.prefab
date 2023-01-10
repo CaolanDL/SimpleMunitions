@@ -115,14 +115,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletObject: {fileID: 1510281592882847432, guid: adec5fca776879142949151889f09bcd, type: 3}
   MuzzleFlash: {fileID: 0}
-  CoolDown: 0.1
-  Noise: 0.1
-  Damage: 10
+  CoolDown: 0.12
+  Noise: 0
+  Damage: 8
   BulletSpeed: 1200
   BulletSize: 0.18
   BulletLifeTime: 0.22
-  Bullet_Count: 6
-  Bullet_SpreadAngle: 40
+  Bullet_Count: 4
+  Bullet_SpreadAngle: 35
   ForwardOffset: 0.5
   InheritVelocity: 1
   _shooting: 0

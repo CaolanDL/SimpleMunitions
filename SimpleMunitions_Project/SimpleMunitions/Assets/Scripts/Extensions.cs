@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class TransformExtensions
 {
+    //Recursive Child Search
     public static Transform FindRecursive(this Transform self, string exactName) => self.FindRecursive(child => child.name == exactName);
 
     public static Transform FindRecursive(this Transform self, Func<Transform, bool> selector)

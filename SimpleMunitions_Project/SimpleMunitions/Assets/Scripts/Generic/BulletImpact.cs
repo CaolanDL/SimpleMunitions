@@ -7,7 +7,7 @@ public class BulletImpact : MonoBehaviour
     [SerializeField]
     private ParticleSystem impactParticles;
 
-
+    #region Impacts
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!checkTags(collision.gameObject))
@@ -23,8 +23,9 @@ public class BulletImpact : MonoBehaviour
             bulletImpact();
         }
     }
+    #endregion
 
-
+    //Check object tags and then decide what to do with this bullet
     private bool checkTags(GameObject objectI)
     {
         List<string> checkList = new List<string>() {"PlayerAttack", "EnemyAttack"};  //List Containing objects for bullets to ignore
@@ -35,6 +36,7 @@ public class BulletImpact : MonoBehaviour
         if (thisTag == "EnemyAttack") { checkList.Add("Enemy"); }  
         else { checkList.Add("Player"); }  
 
+        //Check if impactor tags apply
         foreach (string name in checkList)
         {
             if (objectI.CompareTag(name)) { return true; }
@@ -43,13 +45,13 @@ public class BulletImpact : MonoBehaviour
         return false;
     }
 
-
+    //Play particles then destroy object
     void bulletImpact()
     {
         if (impactParticles != null)
         {
-            Destroy(gameObject);
             Instantiate(impactParticles, transform.position, Quaternion.identity);
         }
+        Destroy(gameObject);
     }
 }

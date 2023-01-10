@@ -39,20 +39,39 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private bool invincible = false;
+    private float damageDelay = 0.8f;
+
     //Check if hit by bullet.
     void ifHitByEnemy(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyAttack") | collision.gameObject.CompareTag("Enemy"))
+        if (!invincible)
         {
-            gameManager.f_ShakeLarge.PlayFeedbacks();
-            gameManager.Hearts--;
-            Hearts = gameManager.Hearts;
-            gameManager.setHearts(Hearts);
+            if (collision.gameObject.CompareTag("EnemyAttack") | collision.gameObject.CompareTag("Enemy"))
+            {
+                gameManager.f_ShakeLarge.PlayFeedbacks();
+                Hearts -= 1;
+                gameManager.setHearts(Hearts);
 
-            //play damage Animation
-            damagedAnim();
+                //play damage Animation
+                damagedAnim();
+
+                //Invicible Cooldown
+                StartCoroutine(InvincibleCoolDown(damageDelay));
+            }
         }
     }
+
+    IEnumerator InvincibleCoolDown(float time)
+    {
+        invincible = true;
+
+        yield return new WaitForSeconds(time);
+
+        // Code to execute after the delay
+        invincible = false;
+    }
+
 
     void checkIfDead(Collider2D collision)
     {

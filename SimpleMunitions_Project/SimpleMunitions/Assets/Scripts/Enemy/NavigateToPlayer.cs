@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Turn towards player and move forward
+/// </summary>
+
 public class NavigateToPlayer : MonoBehaviour
 {
+    #region Variables
     public GameObject TargetPlayer;
     public Rigidbody2D rb;
 
@@ -12,6 +17,7 @@ public class NavigateToPlayer : MonoBehaviour
 
     private bool _targetActive;
     public bool isDead = false;
+    #endregion
 
 
     private void Start()
@@ -30,7 +36,7 @@ public class NavigateToPlayer : MonoBehaviour
         }
     }
 
-
+    // Sequence to excecute movements
     void motionSequence()
     {
         if (!_targetActive)
@@ -43,7 +49,7 @@ public class NavigateToPlayer : MonoBehaviour
         moveTowardsTarget();
     }
 
-
+    //Rotate towards target player
     void rotateTowardsTarget()
     {
         if (_targetActive) //Turn towards target while targeting active
@@ -55,11 +61,17 @@ public class NavigateToPlayer : MonoBehaviour
         }
     }
 
+    //Add force towards target player
     void moveTowardsTarget()
     {
         rb.AddRelativeForce(Vector2.up * MoveSpeed);
     }
 
+
+    /// <summary>
+    /// Wait until enemy has moved a distance in the world before targeting player
+    /// This prevents enemies from getting stuck on walls when spawned outside the arena
+    /// </summary>
 
     private Vector2 oldPosition;
     private float totalDistance = 0;

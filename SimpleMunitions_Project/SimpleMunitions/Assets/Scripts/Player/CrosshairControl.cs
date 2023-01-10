@@ -14,7 +14,12 @@ public class CrosshairControl : MonoBehaviour
         Cursor.visible = false;  //Disable Mouse cursor
     }
 
-    public void UpdateCrosshair()
+    void LateUpdate()
+    {
+        UpdateCrosshair();
+    }
+
+    public void UpdateCrosshair() //Update crosshair position
     {
         SetCrosshairPosition();
         RotateAnimation(rotateSpeed, bobSize, bobSpeed);

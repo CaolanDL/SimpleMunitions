@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed, _lifeTime;
+    [SerializeField] private float _speed, _lifeTime;
     public float Damage;
     public bool IsPropelled;
 
-    public void Init(float speed, float damage, float size, float  lifeTime, float rotation) //Initialise Variables
+    //Initialise Variables  (used after instantiation)
+    public void Init(float speed, float damage, float size, float  lifeTime, float rotation) 
     {
         _speed = speed;
         _lifeTime = lifeTime;
@@ -29,27 +29,31 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         InitLifeTime();
 
+        //If the bullet is not actively propelled then only add initial force
         if (!IsPropelled) { rb.AddRelativeForce(Vector2.up * _speed); }
-            
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         CheckLifeTime();
 
+        //If bullet is actively propelled then add force every frame
         if (IsPropelled) { rb.AddRelativeForce(Vector2.up * _speed); }
     }
 
     private float lifeTimeEnd;
 
+    //Define lifetime
     void InitLifeTime()
     {
         lifeTimeEnd = Time.time + _lifeTime;
     }
 
+    //Check if lifetime is complete
     void CheckLifeTime()
     {
+        //Only use lifetime if > 0
         if (_lifeTime > 0  && Time.time > lifeTimeEnd)
         {
             Destroy(gameObject);

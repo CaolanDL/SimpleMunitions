@@ -4,16 +4,24 @@ using UnityEngine;
 
 using MoreMountains.Feedbacks;
 
+/// <summary>
+/// Enemy health and damage
+/// </summary>
+
 public class EnemyHealth : MonoBehaviour
 {
-    //Health
+    #region Health Vars
     public float Health = 100;
     public int pointValue = 20;
+    public bool isDead = false;
+    #endregion
 
+    #region References
     private SpawnManager spawnManager;
     private DeathAnimation deathAnimation;
     private GameManager gameManager;
     private NavigateToPlayer navToPlayer;
+    #endregion
 
     #region FeedBacks
     private Transform Feedbacks;
@@ -34,9 +42,6 @@ public class EnemyHealth : MonoBehaviour
         navToPlayer = GetComponent<NavigateToPlayer>();
     }
 
-
-    public bool isDead = false;
-
     //Detect Collision
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -47,20 +52,21 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    //Check if hit by bullet.
+    //Check if hit by bullet?
     void ifHitByBullet(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("PlayerAttack"))
         {
             gameManager.f_ShakeSmall.PlayFeedbacks();
             float damage = collision.GetComponent<Bullet>().Damage;
-            Health = Health - damage;
+            Health = Health - damage; //Take Damage
 
             //play damage Animation
             damagedAnim();
         }
     }
 
+    //Check if enemy has died?
     void checkIfDead(Collider2D collision)
     {
         if (Health <= 0) //Kill if health 0
@@ -69,13 +75,16 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    //Run Death sequence
     void Death(GameObject impactor)
     {
-        navToPlayer.isDead = true;
-        gameManager.UpdatePoints(pointValue);
-        spawnManager.enemyKilled();
+        navToPlayer.isDead = true; //Stop moving
+        gameManager.UpdatePoints(pointValue); //Add points
+        spawnManager.enemyKilled(); //Run enemy killed feedback
+
         isDead = true;
 
+        //Play death animation if one is assigned
         if (deathAnimation != null)
         {
             deathAnimation.play(impactor);
@@ -87,9 +96,8 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    
-
-    void damagedAnim()
+    //Run Damage flash feedback
+    void damagedAnim() 
     {
         if (!Feedback_Damage.IsPlaying)
         {

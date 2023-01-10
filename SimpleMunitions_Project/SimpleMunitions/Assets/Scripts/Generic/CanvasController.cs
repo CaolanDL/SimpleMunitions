@@ -6,9 +6,13 @@ using DG.Tweening;
 using MoreMountains.Feedbacks;
 using TMPro;
 
+/// <summary>
+/// Used to hold canvas button inputs, canvas moves, etc
+/// </summary>
+
 public class CanvasController : MonoBehaviour
 {
-
+    #region References
     [SerializeField] private RectTransform uiOffset;
     [SerializeField] private RectTransform shopOffset;
     [SerializeField] private RectTransform headerOffset;
@@ -22,6 +26,7 @@ public class CanvasController : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] private AudioSource audioSource;
+    #endregion
 
 
     private void Start()
@@ -30,7 +35,7 @@ public class CanvasController : MonoBehaviour
         uiOffset.DOLocalMoveX(-414, 1);
     }
 
-
+    // Set Menu Off
     public void MenuOff()
     {
         menuMode(false);
@@ -38,6 +43,7 @@ public class CanvasController : MonoBehaviour
         shopOffset.DOLocalMoveY(-1000, 1.2f); 
     }
 
+    // Set Menu On
     public void MenuOn()
     {
         menuMode(true);
@@ -58,21 +64,25 @@ public class CanvasController : MonoBehaviour
         waveCounter.GetComponent<TextMeshProUGUI>().text = "Wave: " + wave.ToString();
     }
 
+    //Purchase a Heart
     public void purchaseHeart()
     {
         gameManager.PurchaseHeart();
     }
 
+    //Purchase a Weapon
     public void purchaseWeapon(GameObject weapon)
     {
         gameManager.PurchaseWeapon(weapon);
     }
 
+    //Update heart cost text
     public void updateHeartCost()
     {
         heartButton.transform.Find("BuyHeart_Text").GetComponent<TextMeshProUGUI>().text = gameManager.HeartCost.ToString();
     }
 
+    //Update weapon cost text
     public void updateWeaponCost()
     {
         Component[] textfields = shopScroller.transform.GetComponentsInChildren<TextMeshProUGUI>();
@@ -82,7 +92,7 @@ public class CanvasController : MonoBehaviour
         }
     }
 
-
+    //Used to enable/disable menu items between modes
     void menuMode(bool enabled)
     {
         playButton.SetActive(enabled);
@@ -90,6 +100,7 @@ public class CanvasController : MonoBehaviour
     }
 
 
+    //Menu Denied Sound effect
     [SerializeField] private AudioClip sound_MenuDenied;
 
     public void menuDeniedEffect()
@@ -97,7 +108,7 @@ public class CanvasController : MonoBehaviour
         audioSource.PlayOneShot(sound_MenuDenied);
     }
 
-
+    //Show DEATH text
     public void DeadTextActive(bool isActive)
     {
         DeadText.SetActive(isActive);

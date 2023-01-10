@@ -13,19 +13,13 @@ public class CameraController : MonoBehaviour
         Crosshair = GameObject.Find("Crosshair");
     }
 
-    //Go to player postition at end of frame
-    void LateUpdate()
-    {
-        //TrackToPlayer();
-
-        Crosshair.GetComponent<CrosshairControl>().UpdateCrosshair();
-    }
-
+    //Goto Menu Off Position
     public void MenuOff()
     {
         transform.DOLocalMoveX(-5, 1);
     }
 
+    //Goto Menu On position
     public void MenuOn()
     {
         transform.DOLocalMoveX(-19, 1);

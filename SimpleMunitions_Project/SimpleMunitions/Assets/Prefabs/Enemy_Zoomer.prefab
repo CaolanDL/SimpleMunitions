@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -7682602549237096726}
   - component: {fileID: 3207409567642072891}
   - component: {fileID: 1489876005310042901}
-  - component: {fileID: -3663647529650138959}
   - component: {fileID: 7228597167850550844}
   m_Layer: 16
   m_Name: Enemy_Zoomer
@@ -175,19 +174,6 @@ MonoBehaviour:
   Health: 25
   pointValue: 40
   isDead: 0
---- !u!114 &-3663647529650138959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3207409567642072889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc63460b81fecbb4d82bf71011e2440c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
 --- !u!114 &7228597167850550844
 MonoBehaviour:
   m_ObjectHideFlags: 0
